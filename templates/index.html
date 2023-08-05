@@ -47,7 +47,9 @@
            <a href="#" style="font-size: 2.2em; margin: auto; text-decoration: none; color: white;">+</a>
           </div>
         </div>
-        {{posts|safe}}
+        {% for post in posts %}
+            {{ post }}
+        {% endfor %}
       </div>
       <div class="best-projects">
         <div style="display: flex; height: 50px; width: 100%; margin-bottom:10px">
