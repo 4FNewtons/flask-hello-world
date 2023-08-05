@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html lang="ru-RU">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ProjectUP - Поделитесь своими идеями со всем миром!</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  
+  <link href="https://fonts.googleapis.com/css2?family=Manrope&family=Poppins:wght@300&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Andika&family=Inter&display=swap" rel="stylesheet">
+  
+  <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/style.css') }}">
+  
+  <link href="https://cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet">
+
+  <link rel="icon" href="data:,">
+
+</head>
+<body>
+  <header id="header">
+    <div class="logo-div">
+      <h1 class="logo"><a style="color: #fff; text-decoration: none;" href="/">ProjectUP</a></h1>
+      <h4 style="text-align: center; font-family: 'Manrope', sans-serif; margin: 0;  
+ display: flex; align-items: center; font-size: 16px;">Поделитесь своими идеями со всем миром!</h4>
+    </div>
+    <ul class="header-ul">
+      <a class="header-lis main-button" href="#">Главная</a>
+      <a class="header-lis about-button" href="/about">О нас</a>
+      <a id="registration-fuck" class="header-lis login-button" href="/registration">Войти</a>
+    </ul>
+  </header>
+  <div class="header-smllscreen">
+    <ul class="header-ul-smllscreen">
+      <a class="header-lis main-button" href="#">Главная</a>
+      <a class="header-lis about-button" href="/about">О нас</a>
+      <a class="header-lis login-button" id="registration-fuck-mobile" href="/registration">Войти</a>
+    </ul>
+  </div>
+  <main>
+    <section id="projects" class="projects">
+      <div class="project-list">
+        <div style="background-color: #fff; padding: 20px; display: flex; justify-content: space-between;">
+          <h2 style="margin: 0; font-family: 'Andika', sans-serif;">Все проекты</h2>
+          <div onclick="OpenAnket()" class="add">
+           <a href="#" style="font-size: 2.2em; margin: auto; text-decoration: none; color: white;">+</a>
+          </div>
+        </div>
+        {{posts|safe}}
+      </div>
+      <div class="best-projects">
+        <div style="display: flex; height: 50px; width: 100%; margin-bottom:10px">
+          <div style="display: flex; width: 80%; border-bottom: solid 1px #ACBCFF; margin: auto; height: 100%;">
+            <h4 style="margin: auto 0; font-family: 'Andika', sans-serif;">ЛУЧШИЕ ПРОЕКТЫ</h4>
+          </div>
+        </div>
+        <div style="width: 100%; display: flex;"><h5 style="margin: 0 auto 10px auto; font-family: 'Inter', sans-serif; color: #9690E8;">Тут пока ничего нет :р</h5></div>
+        <!-- <div id="BestBlock" style="background: red; width: 90%; margin:0 auto 10px auto;"></div> -->
+      </div>
+    </section>
+    
+    <div id="popup-dont" class="popup">
+      <div id="popup-add" class="popup-add popup-add-dont">
+        <div id="registration-form" class="registration-form">
+          <h1 style="margin: 0;text-align: center;font-family: 'Poppins', sans-serif;"><a style="text-decoration: none; color: #000;" href="/">ProjectUP</a></h1>
+          <div style="display: flex;height: 10%;">
+            <div style="height: 100%;margin: auto;display: flex;width: 65%;justify-content: space-between;padding: 2%;border: solid 1px #ccc;border-radius: 6px;">
+              <input id="regit-choice" onclick="ChoiceRegit()" value="Регистрация" class="choice active" type="button">
+              <input id="login-choice" onclick="ChoiceLogin()" value="Вход" class="choice" type="button">
+            </div>
+          </div>
+          <form class="form" method="POST">
+            <input type="hidden" name="form_type" value="register">
+            <div style="width: 100%;height: 10%;display: flex;">
+              <input id="username" name="username" type="text" placeholder="Придумайте ваш никнейм...">
+            </div>
+            <div style="width: 100%;height: 10%;display: flex;">
+              <input id="email" name="email" type="email" placeholder="Введите ваш E-Mail...">
+            </div>
+            <div style="width: 100%;height: 10%;display: flex;">
+              <input id="password" name="password" type="password" placeholder="Придумайте пароль...">
+            </div>
+            <div style="width: 100%;height: 10%;display: flex;">
+              <input id="confirm-password" name="confirm_password" type="password" placeholder="Напишите пароль еще раз...">
+            </div>
+            <span id="message"></span>
+            <input id="regit-button" type="submit" value="Зарегистрироваться" disabled>
+          </form>
+        </div>
+        
+        <div id="login-form" class="login-form">
+          <h1 style="margin: 0;text-align: center;font-family: 'Poppins', sans-serif;"><a style="text-decoration: none; color: #000;" href="/">ProjectUP</a></h1>
+          <div style="display: flex;height: 10%;">
+            <div style="height: 100%;margin: auto;display: flex;width: 65%;justify-content: space-between;padding: 2%;border: solid 1px #ccc;border-radius: 6px;">
+              <input id="regit-choice" onclick="ChoiceRegit()" value="Регистрация" class="choice" type="button">
+              <input id="login-choice" onclick="ChoiceLogin()" value="Вход" class="choice active" type="button">
+            </div>
+          </div>
+          <form class="form login-form-w" method="POST">
+            <input type="hidden" name="form_type" value="login">
+            <div style="width: 100%;height: 10%;display: flex;">
+              <input type="hidden" placeholder="Придумайте ваш никнейм...">
+            </div>
+            <div style="width: 100%;height: 10%;display: ;">
+              <input type="hidden" placeholder="Введите ваш E-Mail...">
+            </div>
+            <div style="width: 100%;height: 10%;display: flex;">
+              <input name="username" type="text" placeholder="Введите ваш никнейм...">
+            </div>
+            <div style="width: 100%;height: 10%;display: flex;">
+              <input name="password" type="password" placeholder="Введите ваш пароль...">
+            </div>
+            <input type="submit" value="Войти">
+          </form>
+        </div>
+      </div>
+    </div>
+    
+    <div id="popup-comments" class="popup">
+      <div id="popup-add" class="popup-add-comments">
+        <span class="close" onclick="closePopup()" style="position: absolute; right: 2%; top: 1%; font-size: 2em;">×</span>
+        <h1 style="margin: 0; text-align: center; height: 10%; font-family: Inter;">Комментарии</h1>
+        <div class="comment-container">
+        </div>
+        <div style="display: flex;margin-top: 5%;height: 5%;">
+          <input placeholder="Введите ваш комментарий..." class="comment-input" type="text">
+          <button class="comment-submit"><img style="width: 100%; margin: auto;" src="static/images/submit.png" alt=""></button>
+        </div>
+      </div>
+    </div>
+    
+    <div id="popup-post" class="popup">
+      <div id="popup-add-post" class="popup-add">
+        
+      </div>
+    </div>
+
+     <div id="popup" class="popup">
+        <div class="popup-add popup-add-post">
+          <span class="close" onclick="closePopup()" style="position: absolute; right: 2%; top: 1%; font-size: 2em;">×</span>
+          <h2 class="popup-title-post">Расскажите о вашем проекте:</h2>
+          <div class="high-create-form">
+            <form method="POST" style="margin: auto; width: 100%; height: 100%;">
+              <input type="hidden" name="form_type" value="post">
+              <div class="create-form">
+                <div style="width: 100%; height: 10%; display: flex;">
+                  <input style="height: 80%; width: 100%; font-family: Arial; border: 1px solid #ccc; padding-left: 15px; font-size: 1.2em;" name="title" type="text" placeholder="Укажите название вашего проекта...">
+                </div>
+                <div style="width: 100%;height: 30%;display: flex;margin-bottom: 2%;">
+                  <textarea name="preview" style="margin: auto; height: 90%; width: 100%; border: 1px solid #ccc; font-family: Arial; padding: 12px 15px; resize: none;" placeholder="Напишите превью(краткое представление) для вашего проекта..."></textarea>
+                </div>
+                <div style="height: 90%;" id="editor"></div>
+              </div>
+              <div style="position: absolute; width: 95%; height: 15%; bottom: 0; left: 0; display: flex; justify-content: flex-end;">
+                <input onclick="editElements()" type="submit" value="Отправить" class="submit-button" name="submit">
+              </div>
+              <input id="stringDataInput" name="description" type="hidden">
+            </form>
+          </div>
+      </div>
+        </div>
+      </div>
+  <!-- <footer class="footer">
+  <div class="footer-content">
+    <div class="footer-logo">ProjectUP</div>
+    <nav class="footer-nav">
+      <ul>
+        <li><a href="#"></a></li>
+        <li><a href="#">О нас</a></li>
+    </nav>
+    <ul class="footer-social">
+      <li><a href="https://instagram.com/projectup_net?igshid=MTIzZWMxMTBkOA=="><i class="fab fa-instagram">Instagram</i></a></li>
+      <li><a href="https://t.me/projectupnet"><i class="fab fa-telegram">Telegram</i></a></li>
+      <li><a href="#"><i class="fab fa-tiktok">TikTok</i></a></li>
+    </ul>
+  </div>
+</footer> -->
+</body>
+<script src="https://cdn.quilljs.com/1.3.6/quill.js"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script> 
+    console.log("{{username}}")
+    
+    var quill = new Quill('#editor', {
+      modules: {
+        toolbar: [
+          [{ header: [1, 2, false] }],
+          ['bold', 'italic', 'underline'],
+          ['image']
+        ]
+      },
+      placeholder: 'Пора творить будущее...',
+      theme: 'snow'
+    });
+    function editElements() {
+      var content = quill.root.innerHTML;
+    
+      var tempDiv = document.createElement('div');
+      tempDiv.innerHTML = content;
+
+      var headers1 = tempDiv.getElementsByTagName('h1');
+      for (var i = 0; i < headers1.length; i++) {
+        var header1 = headers1[i];
+        header1.classList.add("article-title")
+      }
+      
+      var headers2 = tempDiv.getElementsByTagName('h2');
+      for (var i = 0; i < headers2.length; i++) {
+        var header2 = headers2[i];
+        header2.classList.add("article-title")
+      }
+    
+      var paragraphs = tempDiv.getElementsByTagName('p');
+      for (var i = 0; i < paragraphs.length; i++) {
+        var paragraph = paragraphs[i];
+        paragraph.classList.add("article-text")
+      }
+    
+      var images = tempDiv.getElementsByTagName('img');
+      for (var j = 0; j < images.length; j++) {
+        var image = images[j];
+        image.classList.add("article-image")
+      }
+    
+      var editedContent = tempDiv.innerHTML;
+
+      console.log(editedContent);
+      document.getElementById('stringDataInput').value = editedContent
+    }
+    function OpenAnket() {
+      username = "{{username}}"
+      if (username === "None") {
+        document.getElementById("popup-dont").style.display = "flex";
+      } else {
+        document.getElementById("popup").style.display = "flex";
+      }
+    }
+    function OpenPost(){
+      var list_of_projects = {{ list_of_projects|safe }}.reverse()
+      console.log(list_of_projects)
+      var postId = parseInt(event.target.getAttribute('data-post-id'));
+      document.getElementById("popup-post").style.display = "flex";
+      document.getElementById("popup-add-post").innerHTML = list_of_projects[postId-1];
+    }
+
+    function closePopup() {
+      document.getElementById("popup").style.display = "none";
+      document.getElementById("popup-post").style.display = "none";
+      document.getElementById("popup-dont").style.display = "none";
+      document.getElementById("popup-comments").style.display = "none";
+    }
+    
+    function Like(event) {
+      var username = "{{username}}";
+      var likeId = parseInt(event.target.getAttribute('data-like-id'));
+      $.ajax({
+        url: '/your-endpoint',
+        method: 'POST',
+        data: JSON.stringify({ action: 'like', id: likeId, name: username }),
+        contentType: 'application/json',
+        cache: false,
+        success: function(response) {
+
+          var likesCount = response.likes;
+          var likesElement = document.getElementById("labelOfLikes" + likeId);
+          if (likesElement) {
+            likesElement.innerText = likesCount;
+          } else {
+            console.error("Element not found: labelOfLikes" + likeId);
+          }
+        },
+        error: function(xhr, status, error) {
+          console.error(error);
+        }
+      });
+    }
+    
+
+    if ("{{username}}" != "None"){
+      document.getElementById("registration-fuck").textContent = "{{username}}"
+      document.getElementById("registration-fuck-mobile").textContent = "{{username}}"
+      document.getElementById("registration-fuck").addEventListener('click', function(event) {
+        event.preventDefault();
+      });
+      document.getElementById("registration-fuck-mobile").addEventListener('click', function(event) {
+        event.preventDefault();
+      });
+    } else{
+      document.getElementById("registration-fuck").textContent = "Войти"
+      document.getElementById("registration-fuck-mobile").textContent = "Войти"
+    }
+
+    
+   var commId;
+
+  function OpenComments(event) {
+    commId = parseInt(event.target.getAttribute('data-comment-id'));
+    document.getElementById("popup-comments").style.display = "flex";
+     updateComments();
+  } 
+
+  function submitComment() {
+    const author = "{{username}}";
+    const commentInput = document.querySelector('.comment-input');
+    const commentText = commentInput.value;
+
+    if("{{username}}" != "None"){
+      fetch('/add_comment', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ post_id: commId, author: author, text: commentText }),
+      })
+      .then((response) => response.json())
+      .then((data) => {
+        updateComments();
+        commentInput.value = "";
+      });
+    } else {
+      window.location.href = "/registration";
+    }
+  }
+  
+  const submitButton = document.querySelector('.comment-submit');
+  submitButton.addEventListener('click', () => {
+    submitComment();
+  });
+    
+  function updateComments() {
+    const commentContainer = document.querySelector('.comment-container');
+    commentContainer.innerHTML = '';
+
+    const postId = commId;
+
+    fetch(`/get_comments?post_id=${postId}`, { method: 'GET' })
+        .then((response) => response.json())
+        .then((data) => {
+            commentContainer.innerHTML = data.comments;
+        })
+        .catch((error) => {
+            // Обработка ошибки
+        });
+  }
+
+  
+    function ChoiceRegit(){
+    regitChoiceButton = document.getElementById("regit-choice")
+    loginChoiceButton = document.getElementById("login-choice")
+    regitChoiceButton.classList.add("active")
+    loginChoiceButton.classList.remove("active")
+    loginForm = document.getElementById("login-form")
+    regitForm = document.getElementById("registration-form")
+    loginForm.style.display = "none"
+    regitForm.style.display = "flex"
+  }
+  function ChoiceLogin(){
+    regitChoiceButton = document.getElementById("regit-choice")
+    loginChoiceButton = document.getElementById("login-choice")
+    loginChoiceButton.classList.add("active")
+    regitChoiceButton.classList.remove("active")
+    loginForm = document.getElementById("login-form")
+    regitForm = document.getElementById("registration-form")
+    loginForm.style.display = "flex"
+    regitForm.style.display = "none"
+  }
+
+
+  const usernameInput = document.getElementById('username');
+  const emailInput = document.getElementById('email');
+  const passwordInput = document.getElementById('password');
+  const confirmPasswordInput = document.getElementById('confirm-password');
+  const messageElement = document.getElementById('message');
+  const registerButton = document.getElementById('regit-button');
+  
+  usernameInput.addEventListener('input', checkInputs);
+  emailInput.addEventListener('input', checkInputs);
+  passwordInput.addEventListener('input', checkInputs);
+  confirmPasswordInput.addEventListener('input', checkInputs);
+  
+  function checkInputs() {
+    const username = usernameInput.value;
+    const email = emailInput.value;
+    const password = passwordInput.value;
+    const confirmPassword = confirmPasswordInput.value;
+  
+    if (username && email && password && password === confirmPassword) {
+      messageElement.textContent = '';
+      messageElement.style.color = 'green';
+      registerButton.disabled = false;
+      registerButton.style.backgroundColor = "#ACBCFF";
+    } else {
+      messageElement.textContent = 'Пожалуйста, заполните все поля правильно';
+      messageElement.style.color = 'red';
+      registerButton.disabled = true;
+      registerButton.style.backgroundColor = "#919191";
+    }
+  }
+    
+    
+    
+    
+    
+  </script>
+</html>

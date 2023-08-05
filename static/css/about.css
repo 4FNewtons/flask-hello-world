@@ -1,0 +1,163 @@
+body{
+  margin: 0;
+  background-color: #f1f1f1;
+}
+
+header{
+  display: flex;
+  font-family: 'Poppins', sans-serif;
+  justify-content: space-between;
+  margin-bottom: 2%;
+  background-color: #333;
+  color: #fff;
+  padding: 20px;
+}
+.header-lis{
+  margin: auto;
+  text-decoration: none;
+  padding: 3%;
+  border-radius: 7px;
+  -webkit-text-size-adjust: auto;
+  font-family: 'Manrope', sans-serif;
+  color: #fff;
+}
+.header-lis:hover{
+  color: #ACBCFF;
+}
+
+.header-smllscreen{
+  display: none;
+}
+
+
+.logo{
+  font-family: 'Poppins', sans-serif;
+  margin: auto 5% auto 0;
+}
+
+.window{
+  margin: auto;
+  width: 70%;
+  box-shadow: 0 0 1px 0px #333333;
+  border-radius: 2px;
+}
+
+.avatar{
+  width: 60%;
+  border-radius: 6px;
+  box-shadow: 0 0 1px 0px #333333;
+  margin: auto;
+}
+
+.name{
+  text-align: center;
+  font-family: 'Andika', sans-serif;
+}
+
+.info{
+  text-align: center;
+  width: 80%;
+  margin: auto;
+  font-family: 'Manrope';
+}
+
+.person{
+  width: 50%;
+  display: flex;
+  flex-direction: column;
+}
+
+footer{
+  display: flex;
+  justify-content: space-between;
+  background-color: #333;
+  color: #fff;
+  padding: 20px;
+  margin-top: 10px;
+}
+
+.link{
+  display: flex;
+  align-items: center;
+  color: #ACBCFF;
+  font-family: 'Manrope';
+  text-decoration: none;
+  margin-bottom: 10px;
+}
+
+.team{
+  display: flex; 
+  padding: 1% 8%; 
+  justify-content: space-between; 
+  background: white; 
+  margin-top: 10px;
+}
+
+.footer-logos-smll{
+  display: none;
+}
+.footer-logos-pr{
+  display: flex;
+}
+.footer-logos-4F{
+  width: 20%;
+}
+
+@media screen and (max-width: 576px){
+  .window{
+    width: 100%;
+  }
+  .header-smllscreen{
+    display: flex;
+    background-color: #fff;
+    border-bottom: solid 1px #333333;
+  }
+  .header-ul-smllscreen{
+    display: flex; 
+    width: 100%;
+    margin: 0;
+    padding: 0;
+  }
+  header{
+    margin: 0;
+  }
+  .header-ul{
+    display: none;
+  }
+  .header-lis{
+    width: 70%;
+    text-align: center;
+    color: #333333;
+  }
+
+  .team{
+    flex-direction: column;
+  }
+  .person{
+    width: 100%;
+    
+  }
+  .info{
+    width: 100%;
+    margin-bottom: 10px;
+  }
+  br{
+    display: none;
+  }
+  .avatar{
+    width: 100%;
+  }
+  .footer-logos-smll{
+    display: flex;
+    flex-direction: column;
+  }
+  .footer-logos-pr{
+    display: none;
+  }
+  .footer-logos-4F{
+    display: none;
+  }
+  footer{
+    padding: 0px 20px 20px 0;
+  }
+}

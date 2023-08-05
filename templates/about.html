@@ -1,0 +1,138 @@
+<!-- <h4>Жунусова Аружан</h4>
+<h5>Капитан команды 4F Newtons с 2022 года. Любит рок и классику. Обожает читать, от чего имеет очень богатое воображение и если дело касается идеи, то срочно к ней! Поступает в США на полное финансирование. Главная слабость: коты!
+
+Life is a bowl of cherries with some nuts thrown in</h5> -->
+
+<!-- <h4>Дорофеев Эльдар</h4>
+<h5>Делает вид что работает аж с 2019 года, и у него отлично получается! Изучает немецкий и сейчас на уровне B2 и поступает в Германию на Computer Science. В команде 4F Newtons состоит c 2022 года. Является талисманом команды и очень любит колу.
+
+Python ist die beste Sprache!</h5> -->
+
+<!-- <h3>Мы команда 4F Newtons, мы занимаемся разработкой IT проектов и стартапов а разных сферах: от экологии до исторической игры. Нашей команде уже годик! И мы будем удивлять всех своими инновационными идеями!</h3> -->
+
+<!DOCTYPE html>
+<html lang="ru-RU">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  
+  <link href="https://fonts.googleapis.com/css2?family=Manrope&family=Poppins:wght@300&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Andika&family=Inter&display=swap" rel="stylesheet">
+  
+  <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/style.css') }}">
+
+  <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/about.css') }}">
+
+  <title>О разработчиках</title>
+</head>
+<body>
+  <header id="header">
+    <div class="logo-div">
+      <h1 class="logo"><a style="color: #fff; text-decoration: none;" href="/">ProjectUP</a></h1>
+      <h4 style="text-align: center; font-family: 'Manrope', sans-serif; margin: 0;  
+ display: flex; align-items: center; font-size: 16px;">Поделитесь своими идеями со всем миром!</h4>
+    </div>
+    <ul class="header-ul">
+      <a class="header-lis main-button" href="/">Главная</a>
+      <a class="header-lis about-button" href="/about">О нас</a>
+      <a id="registration-fuck" class="header-lis login-button" href="/registration">Войти</a>
+    </ul>
+  </header>
+
+  <div class="header-smllscreen">
+    <ul class="header-ul-smllscreen">
+      <a class="header-lis main-button" href="/">Главная</a>
+      <a class="header-lis about-button" href="/about">О нас</a>
+      <a class="header-lis login-button" id="registration-fuck-mobile" href="/registration">Войти</a>
+    </ul>
+  </div>
+
+  <main>
+    <div class="window">
+      <div style="padding: 20px; display: flex; background: white;">
+        <h2 style="font-family: 'Andika', sans-serif; margin: 0;">О нас</h2>
+      </div>
+      <div class="team">
+        <div class="person">
+          <img class="avatar" src="static/images/Aruzhan.png" alt="">
+          <h1 class="name">Жунусова Аружан</h1>
+          <h3 class="info">
+            Капитан команды 4F Newtons с 2022 года. Любит рок и классику. Обожает читать, от чего имеет очень богатое воображение и если дело касается идеи, то срочно к ней! Поступает в США на полное финансирование. Главная слабость: коты!
+          </h3>
+          <br>
+          <h3 style="color: #9690E8;" class="info">
+            Life is a bowl of cherries with some nuts thrown in
+          </h3>
+        </div>
+        <div class="person">
+          <img class="avatar" src="static/images/Eldar.png" alt="">
+          <h1 class="name">Дорофеев Эльдар</h1>
+          <h3 class="info">
+            Делает вид что работает аж с 2019 года, и у него отлично получается! Изучает немецкий и сейчас на уровне B2 и поступает в Германию на Computer Science. В команде 4F Newtons состоит c 2022 года. Является талисманом команды и очень любит колу.
+          </h3>
+          <br>
+          <h3 style="color: #9690E8;" class="info">
+            Python ist die beste Sprache!
+          </h3>
+        </div>
+      </div>
+      <div style="display: flex; background-color: #fff;">
+        <h3 class="info" style="margin-bottom: 5px;">
+          Мы команда 4F Newtons, мы занимаемся разработкой IT проектов и стартапов а разных сферах: от экологии до исторической игры. Нашей команде уже годик! И мы будем удивлять всех своими инновационными идеями!
+        </h3>
+      </div>
+    </div>
+    <footer>
+      <div class="footer-logos-4F">
+        <img style="width: 100%;" src="static/images/4F.png" alt="">
+      </div>
+      <div class="footer-logos-pr">
+        <h1 style="font-size: 3em;" class="logo">
+          <a style="color: #fff; text-decoration: none;" href="/">ProjectUP</a>
+        </h1>
+      </div>
+      <div class="footer-logos-smll">
+        <div style="width: 100%;">
+          <img style="width: 100%;" src="static/images/4F.png" alt="">
+        </div>
+        <div style="display: flex;">
+          <h1 style="font-size: 2em; margin: auto;" class="logo">
+            <a style="color: #fff; text-decoration: none;" href="/">ProjectUP</a>
+          </h1>
+        </div>
+      </div>
+      <div style="display: flex; flex-direction: column; justify-content: center;">
+        <p style="text-align: center; font-family: 'Manrope';">Наши контакты:</p>
+        <a class="link" href="https://t.me/ungeziefer1984">
+          <img src="static/images/tg.png" style="width: 20px;" alt="">
+          @ungeziefer1984
+        </a>
+        <a class="link" href="https://t.me/elholmes">
+          <img src="static/images/tg.png" style="width: 20px;" alt="">
+          @elholmes
+        </a>
+      </div>
+    </footer>
+  </main>
+</body>
+  <script>
+    console.log("{{username}}")
+    if ("{{username}}" != "None" || "{{username}}" != ""){
+      document.getElementById("registration-fuck").textContent = "{{username}}"
+      document.getElementById("registration-fuck-mobile").textContent = "{{username}}"
+      document.getElementById("registration-fuck").addEventListener('click', function(event) {
+        event.preventDefault();
+      });
+      document.getElementById("registration-fuck-mobile").addEventListener('click', function(event) {
+        event.preventDefault();
+      });
+    } else{
+      document.getElementById("registration-fuck").textContent = "Войти"
+      document.getElementById("registration-fuck-mobile").textContent = "Войти"
+    }
+  </script>
+</html>

@@ -1,0 +1,149 @@
+body {
+  background-color: #333;
+  display: flex;
+  width: 100vw;
+  height: 100vh;
+  margin: 0;
+}
+
+.registration-form label {
+  display: block;
+  margin-bottom: 10px;
+  font-family:  'Poppins', sans-serif;
+}
+
+.registration-form input[type="text"],
+.registration-form input[type="email"],
+.registration-form input[type="password"] {
+  height: 35px;
+  width: 100%;
+  font-family: Arial;
+  border: 1px solid #ccc;
+  padding-left: 15px;
+  font-size: 1.2em;
+  padding: 10px;
+  border-radius: 6px;
+}
+
+.registration-form input[type="submit"] {
+  width: 100%;
+  padding: 10px;
+  border: none;
+  border-radius: 4px;
+  background-color: #ACBCFF;
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
+  font-family: 'Manrope';
+}
+
+
+.registration-form {
+  margin: auto;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgb(0 0 0 / 10%);
+  background-color: #fff;
+  width: 25%;
+  height: 70%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+input::placeholder {
+  color: rgba(0,0,0,0.6);
+  font-style: italic;
+}
+
+.choice{
+  width: 49%;
+  background: 0;
+  border: 0;
+  font-size: 1em;
+  border-radius: 6px;
+  font-family: 'Manrope';
+}
+
+.choice:hover{
+  background-color: #f7f8fa;
+}
+
+.form{
+  display: flex;
+  flex-direction: column;
+  height: 65%;
+  justify-content: space-between;
+}
+
+.active{
+  background-color: #ACBCFF;
+  pointer-events: none;
+}
+
+.login-form{
+  margin: auto;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgb(0 0 0 / 10%);
+  background-color: #fff;
+  width: 25%;
+  height: 70%;
+  display: none;
+  flex-direction: column;
+  justify-content: space-between;
+}
+.login-form label {
+  display: block;
+  margin-bottom: 10px;
+  font-family:  'Poppins', sans-serif;
+}
+
+.login-form input[type="text"],
+.login-form input[type="password"] {
+  height: 35px;
+  width: 100%;
+  font-family: Arial;
+  border: 1px solid #ccc;
+  padding-left: 15px;
+  font-size: 1.2em;
+  padding: 10px;
+  border-radius: 6px;
+}
+
+.login-form input[type="submit"] {
+  width: 100%;
+  padding: 10px;
+  border: none;
+  border-radius: 4px;
+  background-color: #ACBCFF;
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
+  font-family: 'Manrope';
+}
+/* login-form-w{
+  height: 35%;
+  margin-top: 61%;
+} */
+
+#message{
+  font-family: 'Manrope';
+  margin: 0;
+  text-align: center;
+}
+
+@media screen and (max-width: 576px){
+  .registration-form{
+    width: 100%;
+    height: 95%;
+    border-radius: 0;
+  }
+  .login-form{
+    width: 100%;
+    height: 95%;
+    border-radius: 0;
+  }
+}

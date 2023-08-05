@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="ru-RU">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/registration.css') }}">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  
+  <link href="https://fonts.googleapis.com/css2?family=Manrope&family=Poppins:wght@300&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Andika&family=Inter&display=swap" rel="stylesheet">
+  
+  <title>Регистрация</title>
+</head>
+<body>
+
+<div id="registration-form" class="registration-form">
+  <h1 style="margin: 0;text-align: center;font-family: 'Poppins', sans-serif;"><a style="text-decoration: none; color: #000;" href="/">ProjectUP</a></h1>
+  <div style="display: flex;height: 10%;">
+    <div style="height: 100%;margin: auto;display: flex;width: 65%;justify-content: space-between;padding: 2%;border: solid 1px #ccc;border-radius: 6px;">
+      <input id="regit-choice" onclick="ChoiceRegit()" value="Регистрация" class="choice active" type="button">
+      <input id="login-choice" onclick="ChoiceLogin()" value="Вход" class="choice" type="button">
+    </div>
+  </div>
+  <form class="form" method="POST">
+    <input type="hidden" name="form_type" value="register">
+    <div style="width: 100%;height: 10%;display: flex;">
+      <input id="username" name="username" type="text" placeholder="Придумайте ваш никнейм...">
+    </div>
+    <div style="width: 100%;height: 10%;display: flex;">
+      <input id="email" name="email" type="email" placeholder="Введите ваш E-Mail...">
+    </div>
+    <div style="width: 100%;height: 10%;display: flex;">
+      <input id="password" name="password" type="password" placeholder="Придумайте пароль...">
+    </div>
+    <div style="width: 100%;height: 10%;display: flex;">
+      <input id="confirm-password" name="confirm_password" type="password" placeholder="Напишите пароль еще раз...">
+    </div>
+    <span id="message"></span>
+    <input id="regit-button" type="submit" value="Зарегистрироваться" disabled>
+  </form>
+</div>
+
+<div id="login-form" class="login-form">
+  <h1 style="margin: 0;text-align: center;font-family: 'Poppins', sans-serif;"><a style="text-decoration: none; color: #000;" href="/">ProjectUP</a></h1>
+  <div style="display: flex;height: 10%;">
+    <div style="height: 100%;margin: auto;display: flex;width: 65%;justify-content: space-between;padding: 2%;border: solid 1px #ccc;border-radius: 6px;">
+      <input id="regit-choice" onclick="ChoiceRegit()" value="Регистрация" class="choice" type="button">
+      <input id="login-choice" onclick="ChoiceLogin()" value="Вход" class="choice active" type="button">
+    </div>
+  </div>
+  <form class="form login-form-w" method="POST">
+    <input type="hidden" name="form_type" value="login">
+    <div style="width: 100%;height: 10%;display: flex;">
+      <input type="hidden" placeholder="Придумайте ваш никнейм...">
+    </div>
+    <div style="width: 100%;height: 10%;display: ;">
+      <input type="hidden" placeholder="Введите ваш E-Mail...">
+    </div>
+    <div style="width: 100%;height: 10%;display: flex;">
+      <input name="username" type="text" placeholder="Введите ваш никнейм...">
+    </div>
+    <div style="width: 100%;height: 10%;display: flex;">
+      <input name="password" type="password" placeholder="Введите ваш пароль...">
+    </div>
+    <input type="submit" value="Войти">
+  </form>
+</div>
+
+  </form>
+</body>
+<script>
+  console.log("{{message}}")
+  function ChoiceRegit(){
+    regitChoiceButton = document.getElementById("regit-choice")
+    loginChoiceButton = document.getElementById("login-choice")
+    regitChoiceButton.classList.add("active")
+    loginChoiceButton.classList.remove("active")
+    loginForm = document.getElementById("login-form")
+    regitForm = document.getElementById("registration-form")
+    loginForm.style.display = "none"
+    regitForm.style.display = "flex"
+  }
+  function ChoiceLogin(){
+    regitChoiceButton = document.getElementById("regit-choice")
+    loginChoiceButton = document.getElementById("login-choice")
+    loginChoiceButton.classList.add("active")
+    regitChoiceButton.classList.remove("active")
+    loginForm = document.getElementById("login-form")
+    regitForm = document.getElementById("registration-form")
+    loginForm.style.display = "flex"
+    regitForm.style.display = "none"
+  }
+
+  
+
+  const usernameInput = document.getElementById('username');
+  const emailInput = document.getElementById('email');
+  const passwordInput = document.getElementById('password');
+  const confirmPasswordInput = document.getElementById('confirm-password');
+  const messageElement = document.getElementById('message');
+  const registerButton = document.getElementById('regit-button');
+  
+  usernameInput.addEventListener('input', checkInputs);
+  emailInput.addEventListener('input', checkInputs);
+  passwordInput.addEventListener('input', checkInputs);
+  confirmPasswordInput.addEventListener('input', checkInputs);
+  
+  function checkInputs() {
+    const username = usernameInput.value;
+    const email = emailInput.value;
+    const password = passwordInput.value;
+    const confirmPassword = confirmPasswordInput.value;
+  
+    if (username && email && password && password === confirmPassword) {
+      messageElement.textContent = '';
+      messageElement.style.color = 'green';
+      registerButton.disabled = false;
+      registerButton.style.backgroundColor = "#ACBCFF";
+    } else {
+      messageElement.textContent = 'Пожалуйста, заполните все поля правильно';
+      messageElement.style.color = 'red';
+      registerButton.disabled = true;
+      registerButton.style.backgroundColor = "#919191";
+    }
+  }
+      
+  
+</script>
+</html>
