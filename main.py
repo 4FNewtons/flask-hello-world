@@ -1,9 +1,22 @@
 from flask import Flask, render_template, url_for, request, make_response, redirect, jsonify
 from datetime import date, datetime
-import os
+import os, io
 import json
 
+import dropbox
+
 import sqlite3
+
+access_token = 'sl.Bjr00Fr1aPWQd44lejlPt9Ss6EGL67aqZGJN3-K-OOHJDG-0JYKFvxq6WwF5MJ7mX_la6maQFNqrvfe2bQy9SScVdtePOvVSkyy1PJd5a8deWujCxHB8Z1RLoSn5oiPGsf_bNPsV8sQ9'
+dbx = dropbox.Dropbox(access_token)
+
+local_file_path = os.path.dirname(os.path.abspath(__file__))+ '/static/dbs/main.db'
+dropbox_file_path = '/main.db'
+
+with open(local_file_path, 'rb') as f:
+    dbx.files_upload(f.read(), dropbox_file_path, mode=dropbox.files.WriteMode("overwrite"))
+
+print("Файл успешно загружен на Dropbox")
 
 app = Flask(__name__)
 
@@ -20,7 +33,7 @@ def get_comments_html(comments_list):
 
 def get_comments_for_post(post_id):
   try:
-    conn = sqlite3.connect('static/dbs/main.db')
+    conn = sqlite3.connect(local_file_path)
     cur = conn.cursor()
     cur.execute("SELECT comments FROM posts WHERE id = ?", (post_id, ))
     result = cur.fetchone()
@@ -35,12 +48,16 @@ def add_comment_to_post(post_id, new_comment):
   existing_comments.append(new_comment)
   updated_comments = "|||".join(existing_comments)
 
-  conn = sqlite3.connect('static/dbs/main.db')
+  conn = sqlite3.connect(local_file_path)
   cur = conn.cursor()
   cur.execute("UPDATE posts SET comments = ? WHERE id = ?",
               (updated_comments, post_id))
   conn.commit()
   conn.close()
+  with open(local_file_path, 'rb') as f:
+    dbx.files_upload(f.read(), dropbox_file_path, mode=dropbox.files.WriteMode("overwrite"))
+
+  print("Файл успешно загружен на Dropbox")
 
 
 @app.route('/add_comment', methods=['POST'])
@@ -74,7 +91,7 @@ def your_endpoint():
   data = request.get_json()
   print(data)
   if data['action'] == 'like':
-    conn = sqlite3.connect('static/dbs/main.db')
+    conn = sqlite3.connect(local_file_path)
     cur = conn.cursor()
     cur.execute("SELECT like_people, dislike_people FROM posts WHERE id = ?",
                 (data['id'], ))
@@ -111,6 +128,10 @@ def your_endpoint():
             (dislike_people, data['id']))
 
         conn.commit()
+        with open(local_file_path, 'rb') as f:
+            dbx.files_upload(f.read(), dropbox_file_path, mode=dropbox.files.WriteMode("overwrite"))
+
+            print("Файл успешно загружен на Dropbox")
 
       cur.execute("SELECT likes, dislikes FROM posts WHERE id = ?",
                   (data['id'], ))
@@ -128,6 +149,9 @@ def your_endpoint():
       cur.execute(
         "UPDATE posts SET likes = likes + 1, like_people = ? WHERE id = ?",
         (data['name'], data['id']))
+      with open(local_file_path, 'rb') as f:
+        dbx.files_upload(f.read(), dropbox_file_path, mode=dropbox.files.WriteMode("overwrite"))
+        print("Файл успешно загружен на Dropbox")
 
       if dislike_people is not None and data['name'] in dislike_people.split(
           ", "):
@@ -156,7 +180,7 @@ def your_endpoint():
       return jsonify(response)
 
   if data['action'] == 'dislike':
-    conn = sqlite3.connect('static/dbs/main.db')
+    conn = sqlite3.connect(local_file_path)
     cur = conn.cursor()
     cur.execute("SELECT like_people, dislike_people FROM posts WHERE id = ?",
                 (data['id'], ))
@@ -248,7 +272,7 @@ def index():
   creating_time = str(datetime.now().hour) + ':' + str(
     datetime.now().minute) + ':' + str(datetime.now().second)
 
-  conn = sqlite3.connect('static/dbs/main.db')
+  conn = sqlite3.connect(local_file_path)
   cur = conn.cursor()
   cur.execute('''CREATE TABLE IF NOT EXISTS users(
                   id INTEGER PRIMARY KEY,
@@ -275,7 +299,8 @@ def index():
                   comments TEXT);''')
   conn.commit()
   cur.close()
-  conn = sqlite3.connect('static/dbs/main.db')
+
+  conn = sqlite3.connect(local_file_path)
   cur = conn.cursor()
 
   if request.method == 'POST':
@@ -286,7 +311,7 @@ def index():
       password = request.form['password']
       confirm_password = request.form['confirm_password']
 
-      conn = sqlite3.connect('static/dbs/main.db')
+      conn = sqlite3.connect(local_file_path)
       cur = conn.cursor()
       cur.execute("SELECT * FROM users WHERE name = ?", (username, ))
       result = cur.fetchone()
@@ -303,6 +328,9 @@ def index():
             (username, email, password, current_date))
           conn.commit()
           cur.close()
+          with open(local_file_path, 'rb') as f:
+            dbx.files_upload(f.read(), dropbox_file_path, mode=dropbox.files.WriteMode("overwrite"))
+            print("Файл успешно загружен на Dropbox")
 
           response = make_response(redirect('/'))
           response.set_cookie('username', username)
@@ -312,7 +340,7 @@ def index():
       password = request.form['password']
       print(username, password)
 
-      conn = sqlite3.connect('static/dbs/main.db')
+      conn = sqlite3.connect(local_file_path)
       cur = conn.cursor()
       cur.execute("SELECT * FROM users WHERE name = ? AND password = ?",
                   (username, password))
@@ -335,6 +363,9 @@ def index():
         (username, title, preview, description, creating_date, creating_time,
          0, 0))
       conn.commit()
+      with open(local_file_path, 'rb') as f:
+            dbx.files_upload(f.read(), dropbox_file_path, mode=dropbox.files.WriteMode("overwrite"))
+            print("Файл успешно загружен на Dropbox")
       cur.execute("SELECT articles FROM users WHERE name = ?", (username, ))
       result = cur.fetchone()
       if result is not None and result[0] is not None:
@@ -350,7 +381,7 @@ def index():
 
       return redirect('/')
 
-  conn = sqlite3.connect('static/dbs/main.db')
+  conn = sqlite3.connect(local_file_path)
   cur = conn.cursor()
   cur.execute("SELECT COUNT(*) FROM posts")
   result = cur.fetchone()
@@ -361,7 +392,7 @@ def index():
   postsdesc = []
 
   if result[0] > 0:
-    conn = sqlite3.connect('static/dbs/main.db')
+    conn = sqlite3.connect(local_file_path)
     cur = conn.cursor()
     cur.execute(
       "SELECT title, preview, autor, id, description, creating_date, likes, comments FROM posts ORDER BY id DESC"
@@ -459,7 +490,7 @@ def registration():
       password = request.form['password']
       confirm_password = request.form['confirm_password']
 
-      conn = sqlite3.connect('static/dbs/main.db')
+      conn = sqlite3.connect(local_file_path)
       cur = conn.cursor()
       cur.execute("SELECT * FROM users WHERE name = ?", (username, ))
       result = cur.fetchone()
@@ -476,6 +507,9 @@ def registration():
             (username, email, password, current_date))
           conn.commit()
           cur.close()
+          with open(local_file_path, 'rb') as f:
+            dbx.files_upload(f.read(), dropbox_file_path, mode=dropbox.files.WriteMode("overwrite"))
+            print("Файл успешно загружен на Dropbox")
 
           response = make_response(redirect('/'))
           response.set_cookie('username', username)
@@ -485,7 +519,7 @@ def registration():
       password = request.form['password']
       print(username, password)
 
-      conn = sqlite3.connect('static/dbs/main.db')
+      conn = sqlite3.connect(local_file_path)
       cur = conn.cursor()
       cur.execute("SELECT * FROM users WHERE name = ? AND password = ?",
                   (username, password))
