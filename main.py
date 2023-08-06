@@ -434,8 +434,8 @@ def index():
   else:
     print('Невозможно связаться с БД')
 
-  return render_template('index.html',
-                         username=username)
+  return render_template('index.html')
+                        #  username=username)
                         #  posts=postlist_str,
                         #  list_of_projects=postsdesc)
                         #  message=message)
