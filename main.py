@@ -85,6 +85,7 @@ def your_endpoint():
     if like_people is not None:
       like_people_list = like_people.split(", ") if isinstance(
         like_people, str) else []
+      print(like_people_list)
       if data['name'] in like_people_list:
         like_people_list.remove(data['name'])
         like_people = ", ".join(like_people_list) if like_people_list else ""
