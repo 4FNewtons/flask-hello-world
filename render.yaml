@@ -1,5 +1,5 @@
 services:
-  - name: my-flask-app
+  - name: project-up
 
 build:
   command: gunicorn main:app
