@@ -2,18 +2,19 @@ from flask import Flask, render_template, url_for, request, make_response, redir
 from datetime import date, datetime
 import os, io
 import json
+import subprocess
 
 import dropbox
 
 import sqlite3
+
+app = Flask(__name__)
 
 access_token = os.environ.get('DROPBOX_TOKEN')
 dbx = dropbox.Dropbox(access_token)
 
 local_file_path = os.path.dirname(os.path.abspath(__file__))+ '/static/dbs/main.db'
 dropbox_file_path = '/main.db'
-
-app = Flask(__name__)
 
 def get_comments_html(comments_list):
   comments_html = ""
@@ -534,5 +535,7 @@ def registration():
 def tests():
   return render_template('test.html')
 
+if __name__ == '__main__':
+    flask_process = subprocess.Popen(["python", "your_flask_app.py"])
 
-app.run(host='0.0.0.0')
+    flask_process.wait()
