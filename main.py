@@ -13,12 +13,12 @@ dbx = dropbox.Dropbox(access_token)
 local_file_path = os.path.dirname(os.path.abspath(__file__))+ '/static/dbs/main.db'
 dropbox_file_path = '/main.db'
 
+app = Flask(__name__)
+
 with open(local_file_path, 'rb') as f:
     dbx.files_upload(f.read(), dropbox_file_path, mode=dropbox.files.WriteMode("overwrite"))
 
 print("Файл успешно загружен на Dropbox")
-
-app = Flask(__name__)
 
 def get_comments_html(comments_list):
   comments_html = ""
