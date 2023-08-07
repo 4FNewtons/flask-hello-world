@@ -536,6 +536,6 @@ def tests():
   return render_template('test.html')
 
 if __name__ == '__main__':
-    flask_process = subprocess.Popen(["python", "your_flask_app.py"])
+    flask_process = subprocess.Popen(["python", "main.py"])
 
     flask_process.wait()
