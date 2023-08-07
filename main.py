@@ -107,27 +107,20 @@ def your_endpoint():
           (like_people, data['id']))
         conn.commit()
       else:
-        like_people_list.append(data['name'])
-        like_people = ", ".join(like_people_list)
-        cur.execute(
-          "UPDATE posts SET likes = likes + 1, like_people = ? WHERE id = ?",
-          (like_people, data['id']))
+        if data['name'] != None:
+            like_people_list.append(data['name'])
+            like_people = ", ".join(like_people_list)
+            cur.execute(
+            "UPDATE posts SET likes = likes + 1, like_people = ? WHERE id = ?",
+            (like_people, data['id']))
 
-        if dislike_people is not None and data['name'] in dislike_people.split(
-            ", "):
-          dislike_people_list = dislike_people.split(", ")
-          dislike_people_list.remove(data['name'])
-          dislike_people = ", ".join(
-            dislike_people_list) if dislike_people_list else ""
-          cur.execute(
-            "UPDATE posts SET dislikes = dislikes - 1, dislike_people = ? WHERE id = ?",
-            (dislike_people, data['id']))
+            conn.commit()
+            with open(local_file_path, 'rb') as f:
+                dbx.files_upload(f.read(), dropbox_file_path, mode=dropbox.files.WriteMode("overwrite"))
 
-        conn.commit()
-        with open(local_file_path, 'rb') as f:
-            dbx.files_upload(f.read(), dropbox_file_path, mode=dropbox.files.WriteMode("overwrite"))
-
-            print("Файл успешно загружен на Dropbox")
+                print("Файл успешно загружен на Dropbox")
+        else:
+          pass
 
       cur.execute("SELECT likes, dislikes FROM posts WHERE id = ?",
                   (data['id'], ))
