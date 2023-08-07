@@ -15,11 +15,6 @@ dropbox_file_path = '/main.db'
 
 app = Flask(__name__)
 
-with open(local_file_path, 'rb') as f:
-    dbx.files_upload(f.read(), dropbox_file_path, mode=dropbox.files.WriteMode("overwrite"))
-
-print("Файл успешно загружен на Dropbox")
-
 def get_comments_html(comments_list):
   comments_html = ""
   for comment in comments_list:
@@ -259,6 +254,10 @@ def your_endpoint():
 
 @app.route('/', methods=['GET', 'POST'])
 def index():
+  with open(local_file_path, 'rb') as f:
+    dbx.files_upload(f.read(), dropbox_file_path, mode=dropbox.files.WriteMode("overwrite"))
+
+    print("Файл успешно загружен на Dropbox")   
 
   message = ''
 
