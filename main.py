@@ -10,11 +10,11 @@ import sqlite3
 
 app = Flask(__name__)
 
-access_token = os.environ.get('DROPBOX_TOKEN')
-dbx = dropbox.Dropbox(access_token)
+# access_token = os.environ.get('DROPBOX_TOKEN')
+# dbx = dropbox.Dropbox(access_token)
 
 local_file_path = os.path.dirname(os.path.abspath(__file__))+ '/static/dbs/main.db'
-dropbox_file_path = '/main.db'
+# dropbox_file_path = '/main.db'
 
 def get_comments_html(comments_list):
   comments_html = ""
@@ -50,10 +50,9 @@ def add_comment_to_post(post_id, new_comment):
               (updated_comments, post_id))
   conn.commit()
   conn.close()
-  with open(local_file_path, 'rb') as f:
-    dbx.files_upload(f.read(), dropbox_file_path, mode=dropbox.files.WriteMode("overwrite"))
-
-  print("Файл успешно загружен на Dropbox")
+#   with open(local_file_path, 'rb') as f:
+#     dbx.files_upload(f.read(), dropbox_file_path, mode=dropbox.files.WriteMode("overwrite"))
+#   print("Файл успешно загружен на Dropbox")
 
 
 @app.route('/add_comment', methods=['POST'])
@@ -62,7 +61,6 @@ def add_comment():
   post_id = data['post_id']
   author = data['author']
   text = data['text']
-
   new_comment = f"{author}: {text}"
   add_comment_to_post(post_id, new_comment)
 
@@ -99,28 +97,30 @@ def your_endpoint():
       like_people_list = like_people.split(", ") if isinstance(
         like_people, str) else []
       print(like_people_list)
-      if data['name'] in like_people_list:
+      if data['name'] in like_people_list and data['name'] != None and data['name'] != '' and data['name'] != 'None':
         like_people_list.remove(data['name'])
         like_people = ", ".join(like_people_list) if like_people_list else ""
         cur.execute(
           "UPDATE posts SET likes = likes - 1, like_people = ? WHERE id = ?",
           (like_people, data['id']))
         conn.commit()
+        # with open(local_file_path, 'rb') as f:
+        #     dbx.files_upload(f.read(), dropbox_file_path, mode=dropbox.files.WriteMode("overwrite"))
+        #     print("Файл успешно загружен на Dropbox")
+      elif data['name'] not in like_people_list and data['name'] != None and data['name'] != '' and data['name'] != 'None':
+          like_people_list.append(data['name'])
+          like_people = ", ".join(like_people_list)
+          cur.execute(
+          "UPDATE posts SET likes = likes + 1, like_people = ? WHERE id = ?",
+          (like_people, data['id']))
+
+          conn.commit()
+          # with open(local_file_path, 'rb') as f:
+          #     dbx.files_upload(f.read(), dropbox_file_path, mode=dropbox.files.WriteMode("overwrite"))
+
+          #     print("Файл успешно загружен на Dropbox")
       else:
-        if data['name'] != None:
-            like_people_list.append(data['name'])
-            like_people = ", ".join(like_people_list)
-            cur.execute(
-            "UPDATE posts SET likes = likes + 1, like_people = ? WHERE id = ?",
-            (like_people, data['id']))
-
-            conn.commit()
-            with open(local_file_path, 'rb') as f:
-                dbx.files_upload(f.read(), dropbox_file_path, mode=dropbox.files.WriteMode("overwrite"))
-
-                print("Файл успешно загружен на Dropbox")
-        else:
-          pass
+        print('her')
 
       cur.execute("SELECT likes, dislikes FROM posts WHERE id = ?",
                   (data['id'], ))
@@ -138,9 +138,9 @@ def your_endpoint():
       cur.execute(
         "UPDATE posts SET likes = likes + 1, like_people = ? WHERE id = ?",
         (data['name'], data['id']))
-      with open(local_file_path, 'rb') as f:
-        dbx.files_upload(f.read(), dropbox_file_path, mode=dropbox.files.WriteMode("overwrite"))
-        print("Файл успешно загружен на Dropbox")
+    #   with open(local_file_path, 'rb') as f:
+    #     dbx.files_upload(f.read(), dropbox_file_path, mode=dropbox.files.WriteMode("overwrite"))
+    #     print("Файл успешно загружен на Dropbox")
 
       if dislike_people is not None and data['name'] in dislike_people.split(
           ", "):
@@ -317,9 +317,9 @@ def index():
             (username, email, password, current_date))
           conn.commit()
           cur.close()
-          with open(local_file_path, 'rb') as f:
-            dbx.files_upload(f.read(), dropbox_file_path, mode=dropbox.files.WriteMode("overwrite"))
-            print("Файл успешно загружен на Dropbox")
+        #   with open(local_file_path, 'rb') as f:
+        #     dbx.files_upload(f.read(), dropbox_file_path, mode=dropbox.files.WriteMode("overwrite"))
+        #     print("Файл успешно загружен на Dropbox")
 
           response = make_response(redirect('/'))
           response.set_cookie('username', username)
@@ -352,9 +352,9 @@ def index():
         (username, title, preview, description, creating_date, creating_time,
          0, 0))
       conn.commit()
-      with open(local_file_path, 'rb') as f:
-            dbx.files_upload(f.read(), dropbox_file_path, mode=dropbox.files.WriteMode("overwrite"))
-            print("Файл успешно загружен на Dropbox")
+    #   with open(local_file_path, 'rb') as f:
+    #         dbx.files_upload(f.read(), dropbox_file_path, mode=dropbox.files.WriteMode("overwrite"))
+    #         print("Файл успешно загружен на Dropbox")
       cur.execute("SELECT articles FROM users WHERE name = ?", (username, ))
       result = cur.fetchone()
       if result is not None and result[0] is not None:
@@ -496,9 +496,9 @@ def registration():
             (username, email, password, current_date))
           conn.commit()
           cur.close()
-          with open(local_file_path, 'rb') as f:
-            dbx.files_upload(f.read(), dropbox_file_path, mode=dropbox.files.WriteMode("overwrite"))
-            print("Файл успешно загружен на Dropbox")
+        #   with open(local_file_path, 'rb') as f:
+        #     dbx.files_upload(f.read(), dropbox_file_path, mode=dropbox.files.WriteMode("overwrite"))
+        #     print("Файл успешно загружен на Dropbox")
 
           response = make_response(redirect('/'))
           response.set_cookie('username', username)
@@ -528,7 +528,4 @@ def registration():
 def tests():
   return render_template('test.html')
 
-if __name__ == '__main__':
-    flask_process = subprocess.Popen(["python", "main.py"])
-
-    flask_process.wait()
+app.run(host='0.0.0.0')
