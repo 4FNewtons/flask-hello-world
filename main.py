@@ -7,7 +7,7 @@ import dropbox
 
 import sqlite3
 
-access_token = 'sl.BjrmNEXiMJFRpx6DjO-FmPbQYB7Te6B2TvF7z-K05155Tl4u_PH7GB-mPboAEDSF5zlt_CmJsGN3aJ9sGIfSJmuAAOvG9rFpwHqsOIbJcGek5RjMG_vkSAY8Vypx7R3beA8c4iPhkFZ8'
+access_token = 'sl.BjoZ9GFq6mceP18V-ELb0HanwEkXwr3EWtpCPJxKoUYA--VcWHajWBTVvoZfFTqG9r8nFvw_rIejqwymjuEhajXvTxRd1xNhc1ykdquCxAPassMRwneJ2ATCmSoJjK3bN3MNyCFTu0lI'
 dbx = dropbox.Dropbox(access_token)
 
 local_file_path = os.path.dirname(os.path.abspath(__file__))+ '/static/dbs/main.db'
