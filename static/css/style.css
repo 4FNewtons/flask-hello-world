@@ -191,7 +191,7 @@ header{
   margin-bottom: 0;
 }
 .article-image{
-  width: 100%;
+  width: fit-content;
   margin-bottom: 0;
 }
 
